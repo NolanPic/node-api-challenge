@@ -1,5 +1,7 @@
 const express = require('express');
 const { logger } = require('./middleware');
+const projectsRouter = require('./routes/projectsRouter');
+const actionsRouter = require('./routes/actionsRouter');
 
 const server = express();
 
@@ -9,5 +11,8 @@ server.use(logger);
 server.get('/', (req, res) => {
     res.status(200).send('Projects &amp; Actions API');
 });
+
+server.use('/api/projects', projectsRouter);
+//server.use('/api/actions', actionsRouter);
 
 module.exports = server;
