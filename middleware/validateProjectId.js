@@ -7,6 +7,7 @@ const validateProjectId = (req, res, next) => {
             res.status(404).json({ error: "Project does not exist" });
         }
         else{
+            req.project = project;
             next();
         }
     }).catch(err => {
