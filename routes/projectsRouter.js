@@ -36,4 +36,17 @@ router.get('/:id', validateProjectId, (req, res) => {
     res.status(200).json(req.project);
 });
 
+router.put('/:id', validateProjectId, (req, res) => {
+    const { id } = req.params;
+    const project = req.body;
+    projectDb.update(id, project)
+    .then(updated => {
+        res.status(200).json(updated);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: "Something went wrong updating this project" });
+    });
+});
+
 module.exports = router;
