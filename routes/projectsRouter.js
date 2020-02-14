@@ -36,6 +36,9 @@ router.get('/:id', validateProjectId, (req, res) => {
     res.status(200).json(req.project);
 });
 
+/**
+ * Update project
+ */
 router.put('/:id', validateProjectId, (req, res) => {
     const { id } = req.params;
     const project = req.body;
@@ -46,6 +49,21 @@ router.put('/:id', validateProjectId, (req, res) => {
     .catch(err => {
         console.log(err);
         res.status(500).json({ error: "Something went wrong updating this project" });
+    });
+});
+
+/**
+ * Delete project
+ */
+router.delete('/:id', validateProjectId, (req, res) => {
+    const { id } = req.params;
+    projectDb.remove(id)
+    .then(() => {
+        res.status(204).send();
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: "Something went wrong deleting this project" });
     });
 });
 
