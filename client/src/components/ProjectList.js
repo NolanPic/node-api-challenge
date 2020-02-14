@@ -16,7 +16,7 @@ const ProjectList = () => {
     return (
         <ul>
             {projects.length ? projects.map(project => (
-                <Project project={project} />
+                <Project key={project.id} project={project} />
             ))
             : (
                 <p>No projects</p>
