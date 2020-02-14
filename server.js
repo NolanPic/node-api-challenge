@@ -1,10 +1,12 @@
 const express = require('express');
+const helmet = require('helmet');
 const { logger } = require('./middleware');
 const projectsRouter = require('./routes/projectsRouter');
 const actionsRouter = require('./routes/actionsRouter');
 
 const server = express();
 
+server.use(helmet());
 server.use(express.json());
 server.use(logger);
 
@@ -13,6 +15,6 @@ server.get('/', (req, res) => {
 });
 
 server.use('/api/projects', projectsRouter);
-//server.use('/api/actions', actionsRouter);
+server.use('/api/actions', actionsRouter);
 
 module.exports = server;

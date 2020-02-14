@@ -7,6 +7,7 @@ const validateActionId = (req, res, next) => {
             res.status(404).json({ error: "Action does not exist" });
         }
         else{
+            req.action = action;
             next();
         }
     }).catch(err => {
