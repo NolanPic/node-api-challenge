@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/', validateProject, (req, res) => {
     const project = req.body;
     projectDb.insert(project).then(created => {
-        res.status(201).json(project);
+        res.status(201).json(created);
     }).catch(err => {
         console.log(err);
         res.status(500).json({ error: "Something went wrong creating this project" });
@@ -34,6 +34,21 @@ router.get('/', (req, res) => {
  */
 router.get('/:id', validateProjectId, (req, res) => {
     res.status(200).json(req.project);
+});
+
+/**
+ * Get a project's actions by project id
+ */
+router.get('/:id/actions', validateProjectId, (req, res) => {
+    const { id: projectId } = req.params;
+    projectDb.getProjectActions(projectId)
+    .then(actions => {
+        res.status(200).json(actions);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: "Something went wrong getting this project's actions" });
+    });
 });
 
 /**
